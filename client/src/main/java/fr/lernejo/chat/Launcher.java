@@ -1,34 +1,41 @@
 package fr.lernejo.chat;
 
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Scanner;
 
-@SpringBootApplication
+@Configuration
 public class Launcher {
 
     public static void main(String[] args) {
+        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Launcher.class)) {
+            RabbitTemplate rabbitTemplate = context.getBean(RabbitTemplate.class);
+            Scanner scanner = new Scanner(System.in);
 
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Launcher.class);
-        RabbitTemplate rabbitTemplate  = ctx.getBean(RabbitTemplate.class);
+            System.out.println("Enter your messages. Press Enter to send (type 'exit' to quit):");
 
-        String outputMessage = "Input a message, we will sent it for you (q for quit)";
-        System.out.println(outputMessage);
-        Scanner scanner = new Scanner(System.in);
+            while (true) {
+                String message = scanner.nextLine();
 
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.equals("q")) {
-                System.out.println("Bye");
-                break;
+                if (message.equalsIgnoreCase("exit")) {
+                    break;
+                }
+
+                rabbitTemplate.convertAndSend("", "chat_messages", message);
             }
-            rabbitTemplate.convertAndSend("chat_messages", input);
-            System.out.println("Message sent. " + outputMessage);
         }
+    }
+
+    @Bean
+    RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, Queue queue) {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setRoutingKey(queue.getName());
+        rabbitTemplate.setDefaultReceiveQueue(queue.getName());
+        return rabbitTemplate;
     }
 }

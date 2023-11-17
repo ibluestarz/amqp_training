@@ -7,20 +7,17 @@ import java.util.List;
 
 @Repository
 public class ChatMessageRepository {
-    private final List<String> messages;
 
-    public ChatMessageRepository() {
-        messages = new ArrayList<>();
-    }
+    private final List<String> messages = new ArrayList<>();
 
     public void addChatMessage(String message) {
-        if (messages.size() == 10) {
+        messages.add(message);
+        if (messages.size() > 10) {
             messages.remove(0);
         }
-        messages.add(message);
     }
 
     public List<String> getLastTenMessages() {
-        return messages;
+        return new ArrayList<>(messages);
     }
 }
