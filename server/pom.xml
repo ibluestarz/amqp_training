@@ -1,28 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- server/pom.xml -->
+<project>
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>ibluestarz</groupId>
         <artifactId>amqp_training</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath> <!-- Ajout de relativePath -->
     </parent>
 
     <artifactId>server</artifactId>
+
+    <properties>
+        <spring.boot.version>2.6.1</spring.boot.version> <!-- Ajout de la propriété Spring Boot version -->
+    </properties>
 
     <dependencies>
         <!-- Spring Boot Starter Web for REST APIs -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version> <!-- Utilisation de la propriété -->
         </dependency>
 
         <!-- Spring Boot Starter AMQP for RabbitMQ -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
+            <version>${spring.boot.version}</version> <!-- Utilisation de la propriété -->
         </dependency>
     </dependencies>
 </project>

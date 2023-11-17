@@ -4,10 +4,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fr.lernejo</groupId>
-    <artifactId>maven_training</artifactId>
+    <groupId>ibluestarz</groupId>
+    <artifactId>amqp_training</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <modules>
         <module>server</module>
         <module>client</module>
@@ -27,8 +27,8 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
 
-        <!-- Adding Spring Boot version -->
-        <spring-boot.version>2.7.4</spring-boot.version>
+        <!-- Ajout de la version de Spring Boot -->
+        <spring.boot.version>2.6.1</spring.boot.version>
     </properties>
 
     <dependencyManagement>
@@ -36,7 +36,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${spring.boot.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
