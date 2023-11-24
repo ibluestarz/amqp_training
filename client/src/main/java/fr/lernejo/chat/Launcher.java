@@ -26,13 +26,18 @@ public class Launcher {
                     break;
                 }
 
-                rabbitTemplate.convertAndSend("", "chat_messages", message);
+                rabbitTemplate.convertAndSend("chat_messages", message);
             }
         }
     }
 
     @Bean
-    RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, Queue queue) {
+    public Queue queue() {
+        return new Queue("chat_messages", true);
+    }
+
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, Queue queue) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setRoutingKey(queue.getName());
         rabbitTemplate.setDefaultReceiveQueue(queue.getName());
