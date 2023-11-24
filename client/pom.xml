@@ -5,13 +5,12 @@
         <groupId>ibluestarz</groupId>
         <artifactId>amqp_training</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath> <!-- Ajout de relativePath -->
+        <relativePath>../pom.xml</relativePath> 
     </parent>
 
     <artifactId>client</artifactId>
 
     <dependencies>
-        <!-- Spring Boot Starter AMQP for RabbitMQ -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
